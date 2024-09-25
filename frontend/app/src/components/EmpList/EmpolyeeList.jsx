@@ -1,46 +1,18 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState,useEffect, useMemo,useContext } from 'react';
 import Table from 'react-bootstrap/Table';
 import { FaSortAlphaDown, FaSortAlphaUpAlt } from "react-icons/fa";
 import { Button } from 'react-bootstrap';
-
+import { Context } from '../Context/UserContext';
+import getData from './get.js'
+import { NavLink } from 'react-router-dom';
 function StripedRowExample() {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
-  const userdata=[{
-    name:'Chandu11',
-    email:'bhanuri@gmail.com',
-    number:'9885465280',
-    Designation:'Hr',
-    skills:['MCA'],
-    img:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',
-    gender:'Male'
-   
-  },{  name:'Chandu',
-    email:'bhanuri@gmail.com',
-    number:'9885465280',
-    Designation:'Hr',
-    skills:['MCA'],
-    img:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',
-    gender:'Male'
-   
-  },{
-    name:'Chandu',
-    email:'bhanuri@gmail.com',
-    number:'9885465280',
-    Designation:'Hr',
-    skills:['MCA'],
-    img:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',
-    gender:'Male'
-   
-  },{
-    name:'Chandu',
-    email:'bhanuri@gmail.com',
-    number:'9885465280',
-    Designation:'Hr',
-    skills:['MCA'],
-    img:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',
-    gender:'Male'
-   
-  }]
+  const {userdata,setuserdata}=useContext(Context);
+  const [loading, setLoading] = useState(false);
+  useEffect(()=>{
+    getData(setLoading,setuserdata);
+  },[]);
+  
   const sortedData = useMemo(() => {
     let sortableData = [...userdata];
 
@@ -67,37 +39,19 @@ function StripedRowExample() {
     setSortConfig({ key, direction });
   };
 
-  const downloadExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(sortedData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Students");
-
-    const colWidths = [{ wch: 5 }, { wch: 20 }, { wch: 30 }, { wch: 15 }];
-    worksheet['!cols'] = colWidths;
-
-    XLSX.writeFile(workbook, "StudentsData.xlsx");
-  };
-
+ 
   return (
     <div>
       <div className='container d-flex'>
         <h1 className='login-name mt-3 mb-3'>Employee List</h1>
-        <div className='ms-auto'>
-          <Button 
-            variant="success" 
-            onClick={downloadExcel} 
-            className="mb-3 mt-4"
-          >
-            Download Excel
-          </Button>
-        </div>
+       
       </div>
 
       <div className="w-100 alert alert-success col d-flex justify-content-center place-items-center">
         <h6 className='mt-2 text-bold fs-4'><b> Data Count: {sortedData.length}</b></h6>
       </div>
 
-      <Table striped='columns' className='m-1 text-lg-center overflow-scroll'>
+      <Table  className='m-1 text-lg-center overflow-scroll  table-striped' border={2}>
         <thead>
           <tr>
             <th onClick={() => requestSort('id')}>
@@ -120,7 +74,7 @@ function StripedRowExample() {
         </thead>
         <tbody>
         {sortedData.map((user, index) => {
-          const hello = `/edit-employee/${user.id}`;
+          const hello = `/edit-employee/${index}`;
           return (
             <tr key={index}>
               <td>{index + 1}</td>
@@ -133,9 +87,9 @@ function StripedRowExample() {
               <td>{user.skills.join(', ')}</td>
               <td>{new Date().toLocaleDateString()}</td>
               <td>
-                <a href={hello}>
+                <NavLink to={hello}>
                   <Button variant="primary" className='me-4'>Edit</Button>
-                </a>
+                </NavLink>
                 <Button variant="danger">Delete</Button>
               </td>
             </tr>

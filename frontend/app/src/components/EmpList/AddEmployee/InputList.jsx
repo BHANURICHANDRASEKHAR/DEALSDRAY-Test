@@ -1,15 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Input from '../../Login/Input.jsx'
 import ImageUploadForm from './AddImage.jsx'
 import add from '../../../assets/add.svg'
+import addData from './add.js'
+import { Context } from '../../Context/UserContext.jsx'
+import ImageSlide from './Image.jsx'
+import { useContext } from 'react'
 export default function InputList({data,setdata}) {
+  const [loading,setloading]=useState(false)
+  const {edit}=useContext(Context)
     const onHandler=(e)=>{
         setdata({...data,[e.target.name]:e.target.value})
     }
     function submit()
     {
-      console.log('Submit')
-      console.log(data)
+      if(edit)
+      {
+        addData(data,setloading,'editEmployee');
+      }
+      else{
+        addData(data,setloading,'addEmployee');
+
+      }
     }
        const Designation = ['HR',"Manager",'Sales']
     const Gender=['Male','Female']
@@ -68,8 +80,9 @@ export default function InputList({data,setdata}) {
   value={data.skills}
   name="skills"
 />
-<ImageUploadForm/>
-<button className='btn btn-primary w-100 mt-3' onClick={submit}>Submit</button>
+
+<ImageUploadForm setdata={setdata} data={data}/>
+<button className='btn btn-primary w-100 mt-3' onClick={submit} disabled={loading}>{loading ? 'Loading...' : 'Submit'}</button>
           </div>
         </div>
       </div>

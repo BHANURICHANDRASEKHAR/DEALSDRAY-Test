@@ -67,6 +67,11 @@ button:focus-visible {
   height: 100px;
   object-fit: cover;
 }
-table tr td{
+table tr td {
   text-align: center;
+  border: 1px solid gray;
+}
+.image-slide{
+  border-radius: 50%;
+  object-fit: contain;
 }
