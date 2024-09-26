@@ -5,13 +5,13 @@ import getData from '../EmpList/get';
 export default function UserContext({children}) {
    
   const defaultdata={
-    name:'Chandu',
-    email:'bhanuri@gmail.com',
-    number:'9885465280',
-    Designation:'Hr',
-    skills:['MCA'],
+    name:'',
+    email:'',
+    number:'',
+    Designation:'',
+    skills:[],
     img:'',
-    gender:'Male'
+    gender:''
    
   }
   const [data, setdata] = useState(defaultdata)

@@ -4,6 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { json, NavLink } from 'react-router-dom';
 import './Nav.css';
+import logo from '../../assets/logo.jpg';
 import Logout from './Logout.jsx';
 import getToken from '../Context/token.js';
 function BasicExample() {
@@ -17,7 +18,7 @@ function BasicExample() {
     <Navbar expand="lg" className="bg-body-tertiary" style={{ display: 'flex' }}>
       <Container>
         <img 
-          src='https://play-lh.googleusercontent.com/Im3CE-kmZJmZMC8pkhpCj7tGznPI6LC1EjhaTJ3E6Cdh_mgW5VxF_joZK31XWwZPmkT5=w240-h480-rw' 
+          src={logo} 
           className='medha' 
           alt="Medha Logo" 
         />

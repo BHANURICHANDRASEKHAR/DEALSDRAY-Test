@@ -2,7 +2,7 @@ import React from 'react'
 import { Image } from 'antd'
 export default function ImageSlide(img) {
     const img1=img.img
-    console.log(img1)
+    
   return (
     <Image
     width={80}

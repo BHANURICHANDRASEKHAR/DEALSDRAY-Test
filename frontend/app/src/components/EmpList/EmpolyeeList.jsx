@@ -7,7 +7,7 @@ import { Popconfirm } from 'antd';
 import getData from './get.js'
 import { deleteData } from './AddEmployee/add.js'
 import { NavLink } from 'react-router-dom';
-
+import Loader from '../Loader/Loader.jsx';
 function StripedRowExample() {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
   const { userdata, setuserdata } = useContext(Context);
@@ -57,7 +57,10 @@ function StripedRowExample() {
     }
     return <FaSortAlphaDown />; // Default icon when not sorted
   };
-
+   if(loading)
+   {
+     return <div className='d-flex justify-content-center place-items-center  '><Loader/></div>
+   }
   return (
     <div>
       <div className='container d-flex'>

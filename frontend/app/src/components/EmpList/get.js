@@ -4,7 +4,7 @@ async function  getData(setloading,setdata)
     setloading(true);
     try{
         
-        const response = await axios.get("http://localhost:5000/getEmployees");
+        const response = await axios.get("https://dealsdray-test-rglo.onrender.com/getEmployees");
         setdata(response.data.data);
         setloading(false);
     }

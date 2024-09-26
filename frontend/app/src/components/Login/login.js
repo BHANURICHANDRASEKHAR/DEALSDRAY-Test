@@ -1,0 +1,111 @@
+import axios from "axios";
+import Cookie from 'js-cookie';
+import { errorfunction, successfunction } from "../../toast";
+async function login(setLoading, data, setShow) {
+    setLoading(true);
+    const check=loginvali(data);
+    if(check)
+    {
+        try {
+            const response = await axios.post("http://dealsdray-test-rglo.onrender.com/getUsers",data);
+         
+            if (response.data.status) {
+                // Check if the username and password match the response
+                if (response.data.data.email == data.email && data.password == response.data.data.password) {
+                    const date = new Date();
+                    date.setDate(date.getDate() + 365);
+                    Cookie.set('x-token', JSON.stringify(response.data.data), {
+                        secure: true,
+                        sameSite: 'strict',
+                        expires: date
+                    });
+                    setShow(prevShow => !prevShow); // Toggle the show state correctly
+                } else {
+                    errorfunction('Invalid Credentials');
+                }
+            } else {
+                errorfunction('User not found '); // Provide a default error message
+            }
+        } catch (error) {
+            console.error("Error fetching data", error);
+            errorfunction('An error occurred while logging in'); // Provide feedback to the user
+        } finally {
+            setLoading(false); 
+        }
+    }
+    setLoading(false);
+}
+export default login;
+export async function  Signup(setloading,data,setIsSignup,setData,de)
+{ 
+const check=signvali(data)
+    if(check){
+        setloading(true);
+        try{
+            
+            const response = await axios.post("http://dealsdray-test-rglo.onrender.com/adduser",data);
+            if(response.data.status)
+            {
+              successfunction(response.data.msg);
+              setIsSignup(false)
+              setData(de);
+            }
+            else{
+                errorfunction(response.data.msg);
+            }
+            
+        }
+        catch(error)
+        {
+            console.error("Error fetching data",error);
+            setloading(false);
+        }
+        setloading(false);
+    }
+}
+{/*dealsdray-test-rglo.onrender.com */}
+function loginvali(data)
+{
+    if(data.email.trim().length==0 || data.password.trim().length==0  )
+
+    {
+        errorfunction('All fields are required')
+        return false;
+    }
+    
+
+     else if (!mailtest(data.email)) {
+        return false;
+    }
+   
+    return true;
+}
+function signvali(data)
+{
+    if(data.email.trim().length==0 || data.password.trim().length==0 || data.confirmPassword.trim().length==0 || data.username.trim().length==0 )
+
+    {
+        errorfunction('All fields are required')
+        return false;
+    }
+    
+   
+     else if (!mailtest(data.email)) {
+        return false;
+    } else if (data.password !== data.confirmPassword) {
+        errorfunction("Passwords don't match");
+        return false;
+    } 
+   
+    return true;
+}
+export function mailtest(email)
+{
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+if (!(emailRegex.test(email))) {
+    errorfunction('Invalid email address');
+  return false;
+} 
+return true
+}

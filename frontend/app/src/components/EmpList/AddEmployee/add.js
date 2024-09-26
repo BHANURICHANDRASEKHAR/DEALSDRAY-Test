@@ -2,11 +2,11 @@ import axios from 'axios';
 import { successfunction,errorfunction } from '../../../toast';
  function addData(data,setloading,link)
 {
-    console.log(link);
+    
   const flag=validations(data)
   if(flag){
     setloading(true);
-    axios.post(`http://localhost:5000/${link}`, data)
+    axios.post(`https://dealsdray-test-rglo.onrender.com/${link}`, data)
    .then(response => {
      if(response.data.status)
      {
@@ -50,7 +50,7 @@ export function mailtest(email)
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 if (!(emailRegex.test(email))) {
-  toastfail('Invalid email address');
+  errorfunction('Invalid email address');
   return false;
 } 
 return true
@@ -62,14 +62,14 @@ export function imageupload(formData, data, image, setdata, setloading) {
     setloading(true);  // Start loading
 
     // Sending the formData containing the image file to the server
-    axios.post('http://localhost:5000/image', formData, {
+    axios.post('https://dealsdray-test-rglo.onrender.com/image', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',  // Important for file uploads
       },
     })
       .then(response => {
         if (response.data.status) {
-          console.log(response.data.img[0]);
+        
           setdata({ ...data, img: response.data.img[0] });  // Update the state with the image URL
           successfunction('Image uploaded successfully');
         } else {
@@ -78,7 +78,7 @@ export function imageupload(formData, data, image, setdata, setloading) {
         setloading(false);  // Stop loading
       })
       .catch(error => {
-        console.error(error);
+       
         errorfunction('An error occurred during upload');
         setloading(false);  // Stop loading on error
       });
@@ -91,7 +91,7 @@ export async function deleteData(data,setloading,id)
 {
   setloading(true);  
  try{
-  const res=await axios.post('http://localhost:5000/deleteEmployee',data[id]);
+  const res=await axios.post('https://dealsdray-test-rglo.onrender.com/deleteEmployee',data[id]);
   if(res.data.status)
   { 
     successfunction('Employee successfully deleted ')
