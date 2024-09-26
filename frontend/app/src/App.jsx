@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import Login from './components/Login/Login';
+import Login from './components/Login/Login.jsx';
 import { Context } from './components/Context/UserContext.jsx';
 import getToken from './components/Context/token.js';
 import { Toaster } from 'react-hot-toast'

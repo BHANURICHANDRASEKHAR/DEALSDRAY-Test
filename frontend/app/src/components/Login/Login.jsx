@@ -1,35 +1,30 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import Input from './Input.jsx';
-import Cookie from 'js-cookie';
 import { Context } from '../Context/UserContext.jsx';
-import { errorfunction } from '../../toast.js';
-import login,{Signup} from './login.js'
+import loginfunction, { Signup } from './loginfun.js';
+
 export default function Login() {
     const { show, setShow } = useContext(Context);
-    const [isSignup, setIsSignup] = useState(false); 
-    const [loading, setloading] = useState(false);
-    const de={
-      username: '',
-      password: '',
-      email: '',
-      confirmPassword: ''
-  }
-    const [data, setData] = useState(de);
-
+    const [isSignup, setIsSignup] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const initialData = {
+        username: '',
+        password: '',
+        email: '',
+        confirmPassword: ''
+    };
+    const [data, setData] = useState(initialData);
     const onHandler = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
-    function Submit() {
+    const Submit = () => {
         if (!isSignup) {
-            // Login functionality
-            login(setloading,data,setShow);
-           
+            loginfunction(setLoading, data, setShow);
         } else {
-            
-            Signup(setloading,data,setIsSignup,setData,de);
+            Signup(setLoading, data, setIsSignup, setData, initialData);
         }
-    }
+    };
 
     return (
         <div className="container mt-2">
@@ -54,20 +49,20 @@ export default function Login() {
     );
 }
 
-const Container = ({ data, onHandler, Submit, isSignup, setIsSignup,loading }) => {
+const Container = ({ data, onHandler, Submit, isSignup, setIsSignup, loading }) => {
     return (
         <div className="mt-5 p-5">
             <h1 className="login-name">{isSignup ? 'Signup' : 'Login'}</h1>
             <div className="Auth-form-container">
                 <div className="Auth-form-content">
                     {isSignup ? (
-                        <React.Fragment>
-                        <Input
+                        <>
+                            <Input
                                 label="Username"
                                 placeholder="Enter your Username"
                                 type="text"
                                 handler={onHandler}
-                                value={data.username} 
+                                value={data.username}
                                 name="username"
                             />
                             <Input
@@ -94,9 +89,9 @@ const Container = ({ data, onHandler, Submit, isSignup, setIsSignup,loading }) =
                                 value={data.confirmPassword}
                                 name="confirmPassword"
                             />
-                        </React.Fragment>
+                        </>
                     ) : (
-                        <React.Fragment>
+                        <>
                             <Input
                                 label="Email"
                                 placeholder="Enter your Email"
@@ -113,9 +108,9 @@ const Container = ({ data, onHandler, Submit, isSignup, setIsSignup,loading }) =
                                 value={data.password}
                                 name="password"
                             />
-                        </React.Fragment>
+                        </>
                     )}
-                    <button className="btn btn-success mt-4 w-100"  onClick={Submit} disabled={loading}>
+                    <button className="btn btn-success mt-4 w-100" onClick={Submit} disabled={loading}>
                         <b>{loading ? 'Loading ... ' : (isSignup ? 'Signup' : 'Login')}</b>
                     </button>
                 </div>

@@ -1,13 +1,13 @@
 import axios from "axios";
 import Cookie from 'js-cookie';
 import { errorfunction, successfunction } from "../../toast";
-async function login(setLoading, data, setShow) {
-    setLoading(true);
+async function loginfunction(setLoading, data, setShow) {
+   console.log(data);
     const check=loginvali(data);
     if(check)
-    {
+    { setLoading(true);
         try {
-            const response = await axios.post("http://dealsdray-test-rglo.onrender.com/getUsers",data);
+            const response = await axios.post("https://dealsdray-test-rglo.onrender.com/getUsers",data);
          
             if (response.data.status) {
                 // Check if the username and password match the response
@@ -35,7 +35,7 @@ async function login(setLoading, data, setShow) {
     }
     setLoading(false);
 }
-export default login;
+export default loginfunction;
 export async function  Signup(setloading,data,setIsSignup,setData,de)
 { 
 const check=signvali(data)
@@ -43,7 +43,7 @@ const check=signvali(data)
         setloading(true);
         try{
             
-            const response = await axios.post("http://dealsdray-test-rglo.onrender.com/adduser",data);
+            const response = await axios.post("https://dealsdray-test-rglo.onrender.com/adduser",data);
             if(response.data.status)
             {
               successfunction(response.data.msg);
@@ -66,7 +66,7 @@ const check=signvali(data)
 {/*dealsdray-test-rglo.onrender.com */}
 function loginvali(data)
 {
-    if(data.email.trim().length==0 || data.password.trim().length==0  )
+    if(data.email.length==0 || data.password.length==0  )
 
     {
         errorfunction('All fields are required')
@@ -82,7 +82,7 @@ function loginvali(data)
 }
 function signvali(data)
 {
-    if(data.email.trim().length==0 || data.password.trim().length==0 || data.confirmPassword.trim().length==0 || data.username.trim().length==0 )
+    if(data.email.length==0 || data.password.length==0 || data.confirmPassword.length==0 || data.username.length==0 )
 
     {
         errorfunction('All fields are required')
