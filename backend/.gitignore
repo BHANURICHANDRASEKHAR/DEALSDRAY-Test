@@ -1,3 +1,2 @@
 /node_modules/
-/Components/firebase.json
-/Components/firebaseconnection.js
+/.env
