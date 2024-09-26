@@ -71,7 +71,16 @@ table tr td {
   text-align: center;
   border: 1px solid gray;
 }
+
 .image-slide{
   border-radius: 50%;
-  object-fit: contain;
+  object-fit: cover;
+  
+}
+a{
+  color: black;
+}
+.active{
+  color: rgb(255, 145, 0);
+  font-weight:900;
 }

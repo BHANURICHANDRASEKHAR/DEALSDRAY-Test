@@ -4,7 +4,6 @@ import ImageUploadForm from './AddImage.jsx'
 import add from '../../../assets/add.svg'
 import addData from './add.js'
 import { Context } from '../../Context/UserContext.jsx'
-import ImageSlide from './Image.jsx'
 import { useContext } from 'react'
 export default function InputList({data,setdata}) {
   const [loading,setloading]=useState(false)

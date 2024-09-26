@@ -86,3 +86,24 @@ export function imageupload(formData, data, image, setdata, setloading) {
     errorfunction('Please provide a valid image');
   }
 }
+
+export async function deleteData(data,setloading,id)
+{
+  setloading(true);  
+ try{
+  const res=await axios.post('http://localhost:5000/deleteEmployee',data[id]);
+  if(res.data.status)
+  { 
+    successfunction('Employee successfully deleted ')
+  }
+  else{
+    errorfunction('Something went wrong')
+  }
+ }
+ catch(error)
+ {
+  console.log(error.message);
+  errorfunction('Something went wrong')
+ }
+ setloading(false);
+}

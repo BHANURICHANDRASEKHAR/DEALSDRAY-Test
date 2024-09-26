@@ -4,6 +4,7 @@ import Input from './Input.jsx';
 import { Button } from 'bootstrap';
 import Cookie from 'js-cookie';
 import { Context } from '../Context/UserContext.jsx';
+import { errorfunction } from '../../toast.js';
 export default function Login() {
     const {show,setShow}=useContext(Context);
     const [data, setData] = useState({
@@ -24,12 +25,12 @@ export default function Login() {
                     expires: date 
                 });
                 setShow(!show);
-                console.log(show);
+                
         }
         else{
-            console.log('Invalid Credentials',data)
+           
     
-        alert('Invalid Credentials')
+            errorfunction('Invalid Credentials')
         }
     }
   return (

@@ -13,7 +13,7 @@ const App = () => {
   
 
   return (
-    <div className='button'>
+    <div className='button mb-2'>
       <Popconfirm
         title="Are you sure to Logout?"
         onConfirm={handleConfirm}
@@ -21,7 +21,7 @@ const App = () => {
         cancelText="No"
         className="custom-popconfirm"
       >
-        <Button>Logout</Button>
+        <Button className='bg-warning text-dark'>Logout</Button>
       </Popconfirm>
     </div>
   );
