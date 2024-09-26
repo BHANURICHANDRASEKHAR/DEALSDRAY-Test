@@ -8,7 +8,8 @@ import imageRoute from './Components/imgUpload.js'
 import getUsers from './Components/getEmp.js'
 import EditEmployee from './Components/EditEmpolyee.js'
 import DeleteRoute from './Components/deleteEmployee.js'
-
+import ADDUser from './Components/addUser.js'
+import LoginUser from './Components/loginUser.js'
 const app = express();
 env.config();
 MongooDB();
@@ -30,6 +31,8 @@ app.use('/image',imageRoute);
 app.use('/getEmployees', getUsers);
 app.use('/editEmployee',EditEmployee)
 app.use('/deleteEmployee',DeleteRoute)
+app.use('/adduser',ADDUser);
+app.use('/getUsers', LoginUser);
 var port=process.env.port || 5000
 
 
